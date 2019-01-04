@@ -3,6 +3,7 @@ import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Animated } f
 export class MovieItem extends React.PureComponent {
     constructor(props) {
         super(props);
+        console.log(props.movie);
         this.state = { cardScale: new Animated.Value(1) };
         this.tapFeedback = this.tapFeedback.bind(this);
     }
@@ -48,7 +49,7 @@ export class MovieItem extends React.PureComponent {
             }
         ]}>
         <ImageBackground style={{ width: "100%", height: "100%" }} source={{
-            uri: "https://image.tmdb.org/t/p/w500" + this.props.movie.backdropPath
+            uri: this.props.movie.backdropPath
         }}>
           <TouchableOpacity activeOpacity={0.9} style={{ flex: 1 }} onPress={this.tapFeedback}>
             <View style={styles.overlay}/>

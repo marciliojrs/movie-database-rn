@@ -24,9 +24,12 @@ interface State {
 export class MovieItem extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
+
+    console.log(props.movie);
     this.state = { cardScale: new Animated.Value(1) };
     this.tapFeedback = this.tapFeedback.bind(this);
   }
+
   private getItemStyle(): StyleProp<ViewStyle> {
     let itemStyles: StyleProp<ViewStyle>[] = [styles.item];
     if (this.props.index % 2 == 0) {
@@ -78,8 +81,7 @@ export class MovieItem extends React.PureComponent<Props, State> {
         <ImageBackground
           style={{ width: "100%", height: "100%" }}
           source={{
-            uri:
-              "https://image.tmdb.org/t/p/w500" + this.props.movie.backdropPath
+            uri: this.props.movie.backdropPath
           }}
         >
           <TouchableOpacity

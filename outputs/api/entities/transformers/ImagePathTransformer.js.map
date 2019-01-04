@@ -1,0 +1,1 @@
+{"version":3,"file":"ImagePathTransformer.js","sourceRoot":"","sources":["../../../../src/api/entities/transformers/ImagePathTransformer.ts"],"names":[],"mappings":"AAEA,MAAM,OAAO,oBAAoB;IAAjC;QACE,gBAAW,GAAG,CAAC,KAAa,EAAU,EAAE;YACtC,OAAO,iCAAiC,GAAG,KAAK,CAAC;QACnD,CAAC,CAAC;QACF,cAAS,GAAG,CAAC,KAAa,EAAU,EAAE;YACpC,OAAO,KAAK,CAAC;QACf,CAAC,CAAC;IACJ,CAAC;CAAA"}

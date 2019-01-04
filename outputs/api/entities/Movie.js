@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { JsonProperty } from "json-object-mapper";
+import { ImagePathTransformer } from "./transformers/ImagePathTransformer";
 export class Movie {
     constructor() {
         this.id = 0;
@@ -22,10 +23,18 @@ __decorate([
     JsonProperty()
 ], Movie.prototype, "title", void 0);
 __decorate([
-    JsonProperty({ name: "poster_path" })
+    JsonProperty({
+        name: "poster_path",
+        deserializer: ImagePathTransformer,
+        serializer: ImagePathTransformer
+    })
 ], Movie.prototype, "posterPath", void 0);
 __decorate([
-    JsonProperty({ name: "backdrop_path" })
+    JsonProperty({
+        name: "backdrop_path",
+        deserializer: ImagePathTransformer,
+        serializer: ImagePathTransformer
+    })
 ], Movie.prototype, "backdropPath", void 0);
 __decorate([
     JsonProperty()

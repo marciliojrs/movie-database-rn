@@ -1,8 +1,8 @@
 export interface IMovie {
   id: Number;
   title: String;
-  posterPath?: String;
-  backdropPath?: String;
+  posterPath?: string;
+  backdropPath?: string;
   overview: String;
   releaseDate: Date;
 }

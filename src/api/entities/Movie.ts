@@ -1,15 +1,24 @@
 import { IMovie } from "src/domain/entities/IMovie";
 import { JsonProperty } from "json-object-mapper";
+import { ImagePathTransformer } from "./transformers/ImagePathTransformer";
 
 export class Movie implements IMovie {
   @JsonProperty()
   public id: Number;
   @JsonProperty()
   public title: String;
-  @JsonProperty({ name: "poster_path" })
-  public posterPath?: String;
-  @JsonProperty({ name: "backdrop_path" })
-  public backdropPath?: String;
+  @JsonProperty({
+    name: "poster_path",
+    deserializer: ImagePathTransformer,
+    serializer: ImagePathTransformer
+  })
+  public posterPath?: string;
+  @JsonProperty({
+    name: "backdrop_path",
+    deserializer: ImagePathTransformer,
+    serializer: ImagePathTransformer
+  })
+  public backdropPath?: string;
   @JsonProperty()
   public overview: String;
   @JsonProperty()
