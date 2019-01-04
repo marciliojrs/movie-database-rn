@@ -1292,6 +1292,11 @@ buffer-from@1.x, buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
+build-url@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/build-url/-/build-url-1.3.2.tgz#2a48659092d6955a7af31ca7a69e3f88e7b7b219"
+  integrity sha512-L6H0SvNHEQC3GaTh07IdQ04BbERtccx6rHEBpprU2vPerYY2n0qyU2jb2Un5T7xgGhoCrP5Br1ThO6jH3pR5ow==
+
 builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
