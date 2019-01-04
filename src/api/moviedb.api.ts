@@ -1,4 +1,4 @@
-import { API_KEY } from "../local";
+import { API_KEY } from "./local";
 import buildUrl from "build-url";
 
 const baseUrl = "https://api.themoviedb.org/3/";
