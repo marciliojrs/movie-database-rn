@@ -1,0 +1,3 @@
+rootProject.name = 'hellow'
+
+include ':app'

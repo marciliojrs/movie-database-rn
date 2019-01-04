@@ -1,0 +1,46 @@
+{
+  "name": "hellow",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "concurrently -r 'tsc -w' 'node_modules/react-native/local-cli/cli.js start'",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "16.6.3",
+    "react-native": "0.57.8"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.11",
+    "@types/react": "^16.7.18",
+    "@types/react-native": "^0.57.25",
+    "babel-jest": "23.6.0",
+    "concurrently": "^4.1.0",
+    "jest": "23.6.0",
+    "json-object-mapper": "^1.6.0",
+    "metro-react-native-babel-preset": "0.51.1",
+    "react-native-image-overlay": "^0.1.2",
+    "react-test-renderer": "16.6.3",
+    "reflect-metadata": "^0.1.12",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
+  }
+}
