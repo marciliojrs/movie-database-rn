@@ -1,6 +1,12 @@
 import React from "react";
 import "reflect-metadata";
-import { StyleSheet, SafeAreaView, FlatList, Modal } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Modal,
+  StatusBar
+} from "react-native";
 import { makeMovieRepository } from "../../../api/repositories/MovieRepository";
 import { makeGetUpcomingMoviesUseCase } from "../../../domain/usecases/GetUpcomingMoviesUseCase";
 import { IMovie } from "../../../domain/entities/IMovie";
@@ -83,6 +89,7 @@ export default class MovieIndex extends React.Component<Props, State> {
   render() {
     return (
       <SafeAreaView style={styles.safeArea}>
+        <StatusBar barStyle="light-content" />
         <FlatList
           data={this.createRows(this.state.movies, numOfColumns)}
           keyExtractor={item => item.id.toString()}

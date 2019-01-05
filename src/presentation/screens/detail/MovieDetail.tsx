@@ -2,7 +2,15 @@ import React from "react";
 import { IMovie } from "../../../domain/entities/IMovie";
 import CardBackground from "../../widget/CardBackground";
 import CloseButton from "../../widget/CloseButton";
-import { StyleSheet, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  View,
+  ScrollView,
+  StatusBar
+} from "react-native";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
 interface Props {
   movie: IMovie;
@@ -14,9 +22,28 @@ export default class MovieDetail extends React.Component<Props, State> {
   render() {
     return (
       <CardBackground movie={this.props.movie}>
+        <StatusBar barStyle="light-content" />
         <SafeAreaView>
-          <CloseButton style={styles.closeButton} onTap={this.props.close} />
+          <ScrollView style={{ height: "100%" }}>
+            <Text style={styles.title}>{this.props.movie.title}</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignSelf: "flex-start",
+                margin: 8
+              }}
+            >
+              <Text style={styles.releaseDate}>
+                {this.props.movie.releaseDate.toDateString()}
+              </Text>
+            </View>
+
+            <Text style={styles.overview}>{this.props.movie.overview}</Text>
+          </ScrollView>
         </SafeAreaView>
+        <View style={{ alignSelf: "flex-end", position: "absolute" }}>
+          <CloseButton style={styles.closeButton} onTap={this.props.close} />
+        </View>
       </CardBackground>
     );
   }
@@ -24,8 +51,30 @@ export default class MovieDetail extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   closeButton: {
-    alignSelf: "flex-end",
     marginRight: 8,
-    marginTop: 8
+    marginTop: getStatusBarHeight() + 8,
+    marginLeft: 20
+  },
+  title: {
+    flex: 1,
+    color: "white",
+    marginLeft: 8,
+    marginTop: 8,
+    marginRight: 60,
+    fontSize: 26,
+    fontWeight: "bold"
+  },
+  overview: {
+    color: "white",
+    margin: 8
+  },
+  releaseDate: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    fontSize: 9,
+    color: "white",
+    padding: 4,
+    borderRadius: 8,
+    overflow: "hidden",
+    alignSelf: "auto"
   }
 });

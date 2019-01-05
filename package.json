@@ -22,6 +22,7 @@
     "json-object-mapper": "^1.6.0",
     "metro-react-native-babel-preset": "0.51.1",
     "react-native-image-overlay": "^0.1.2",
+    "react-native-iphone-x-helper": "^1.2.0",
     "react-native-modal": "^7.0.2",
     "react-test-renderer": "16.6.3",
     "reflect-metadata": "^0.1.12",
