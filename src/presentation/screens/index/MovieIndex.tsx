@@ -1,16 +1,19 @@
 import React from "react";
 import "reflect-metadata";
-import { StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { StyleSheet, SafeAreaView, FlatList, Modal } from "react-native";
 import { makeMovieRepository } from "../../../api/repositories/MovieRepository";
 import { makeGetUpcomingMoviesUseCase } from "../../../domain/usecases/GetUpcomingMoviesUseCase";
 import { IMovie } from "../../../domain/entities/IMovie";
 import { Movie } from "../../../api/entities/Movie";
 import { MovieItem } from "./MovieItem";
+import MovieDetail from "../detail/MovieDetail";
 
 interface Props {}
 interface State {
   movies: IMovie[];
   page: number;
+  selectedMovie: IMovie;
+  isModalVisible: boolean;
 }
 
 const numOfColumns = 2;
@@ -23,7 +26,9 @@ export default class MovieIndex extends React.Component<Props, State> {
 
     this.state = {
       movies: [],
-      page: 1
+      page: 1,
+      selectedMovie: new Movie(),
+      isModalVisible: false
     };
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
@@ -50,7 +55,6 @@ export default class MovieIndex extends React.Component<Props, State> {
   }
 
   private handleLoadMore() {
-    console.log("handleLoadMore");
     this.setState(
       {
         page: this.state.page + 1
@@ -66,8 +70,15 @@ export default class MovieIndex extends React.Component<Props, State> {
       movie={item}
       isLast={index == this.state.movies.length - 1}
       index={index}
+      onPress={movie => {
+        this.setState({ isModalVisible: true, selectedMovie: movie });
+      }}
     />
   );
+
+  private closeModal() {
+    this.setState({ isModalVisible: false });
+  }
 
   render() {
     return (
@@ -80,6 +91,14 @@ export default class MovieIndex extends React.Component<Props, State> {
           onEndReached={this.handleLoadMore}
           onEndReachedThreshold={0.5}
         />
+        <Modal visible={this.state.isModalVisible} animationType="slide">
+          <MovieDetail
+            movie={this.state.selectedMovie}
+            close={() => {
+              this.closeModal();
+            }}
+          />
+        </Modal>
       </SafeAreaView>
     );
   }
