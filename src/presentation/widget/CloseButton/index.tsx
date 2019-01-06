@@ -4,7 +4,8 @@ import {
   Image,
   StyleSheet,
   StyleProp,
-  ViewStyle
+  ViewStyle,
+  View
 } from "react-native";
 
 interface Props {
@@ -14,18 +15,26 @@ interface Props {
 
 export default class CloseButton extends React.PureComponent<Props> {
   render() {
-    let myStyles = [this.props.style];
-    myStyles.push(styles.closeButton);
     return (
       <TouchableOpacity
-        style={myStyles}
+        style={[
+          this.props.style,
+          {
+            width: 44,
+            height: 44,
+            justifyContent: "center",
+            alignItems: "center"
+          }
+        ]}
         activeOpacity={0.8}
         onPress={() => this.props.onTap()}
       >
-        <Image
-          source={require("../../../images/close.png")}
-          style={styles.closeImage}
-        />
+        <View style={styles.closeButton}>
+          <Image
+            source={require("../../../images/close.png")}
+            style={styles.closeImage}
+          />
+        </View>
       </TouchableOpacity>
     );
   }

@@ -8,7 +8,8 @@ import {
   Text,
   View,
   ScrollView,
-  StatusBar
+  StatusBar,
+  Platform
 } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
@@ -51,9 +52,7 @@ export default class MovieDetail extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   closeButton: {
-    marginRight: 8,
-    marginTop: getStatusBarHeight() + 8,
-    marginLeft: 20
+    marginTop: Platform.OS === "ios" ? getStatusBarHeight() : 0
   },
   title: {
     flex: 1,
