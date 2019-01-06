@@ -5,16 +5,17 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
-  ImageBackground,
   Text,
   TouchableOpacity,
   Animated
 } from "react-native";
+import CardBackground from "../../widget/CardBackground/index";
 
 export interface Props {
   movie: IMovie;
   isLast: boolean;
   index: number;
+  onPress: (movie: IMovie) => void;
 }
 
 interface State {
@@ -25,7 +26,6 @@ export class MovieItem extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    console.log(props.movie);
     this.state = { cardScale: new Animated.Value(1) };
     this.tapFeedback = this.tapFeedback.bind(this);
   }
@@ -56,7 +56,9 @@ export class MovieItem extends React.PureComponent<Props, State> {
           toValue: 1,
           duration: 100
         })
-      ]).start();
+      ]).start(() => {
+        this.props.onPress(this.props.movie);
+      });
     });
   }
 
@@ -69,34 +71,22 @@ export class MovieItem extends React.PureComponent<Props, State> {
       <Animated.View
         style={[
           this.getItemStyle(),
-          {
-            transform: [
-              {
-                scale: this.state.cardScale
-              }
-            ]
-          }
+          { transform: [{ scale: this.state.cardScale }] }
         ]}
       >
-        <ImageBackground
-          style={{ width: "100%", height: "100%" }}
-          source={{
-            uri: this.props.movie.backdropPath
-          }}
-        >
+        <CardBackground movie={this.props.movie}>
           <TouchableOpacity
             activeOpacity={0.9}
             style={{ flex: 1 }}
             onPress={this.tapFeedback}
           >
-            <View style={styles.overlay} />
             <Text style={styles.title}>{this.props.movie.title}</Text>
 
             <Text style={styles.releaseDate}>
               {this.props.movie.releaseDate.toDateString()}
             </Text>
           </TouchableOpacity>
-        </ImageBackground>
+        </CardBackground>
       </Animated.View>
     );
   }
@@ -141,9 +131,5 @@ const styles = StyleSheet.create({
   },
   itemEmpty: {
     backgroundColor: "transparent"
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.5)"
   }
 });

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "concurrently -r 'tsc -w' 'node_modules/react-native/local-cli/cli.js start'",
-    "test": "jest"
+    "test": "jest",
+    "add-assets": "copyfiles -u 1 'src/**/!(*.js|*.jsx|*.map|*.ts|*.tsx)' outputs/"
   },
   "dependencies": {
     "react": "16.6.3",
@@ -21,6 +22,8 @@
     "json-object-mapper": "^1.6.0",
     "metro-react-native-babel-preset": "0.51.1",
     "react-native-image-overlay": "^0.1.2",
+    "react-native-iphone-x-helper": "^1.2.0",
+    "react-native-modal": "^7.0.2",
     "react-test-renderer": "16.6.3",
     "reflect-metadata": "^0.1.12",
     "ts-jest": "^23.10.5",
