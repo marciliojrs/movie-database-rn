@@ -98,7 +98,11 @@ export default class MovieIndex extends React.Component<Props, State> {
           onEndReached={this.handleLoadMore}
           onEndReachedThreshold={0.5}
         />
-        <Modal visible={this.state.isModalVisible} animationType="slide">
+        <Modal
+          visible={this.state.isModalVisible}
+          animationType="fade"
+          onRequestClose={() => this.closeModal()}
+        >
           <MovieDetail
             movie={this.state.selectedMovie}
             close={() => {

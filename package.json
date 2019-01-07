@@ -5,7 +5,8 @@
   "scripts": {
     "start": "concurrently -r 'tsc -w' 'node_modules/react-native/local-cli/cli.js start'",
     "test": "jest",
-    "add-assets": "copyfiles -u 1 'src/**/!(*.js|*.jsx|*.map|*.ts|*.tsx)' outputs/"
+    "add-assets": "copyfiles -u 1 'src/**/!(*.js|*.jsx|*.map|*.ts|*.tsx)' outputs/",
+    "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev true --bundle-output ios/main.jsbundle --assets-dest ios"
   },
   "dependencies": {
     "react": "16.6.3",
@@ -21,6 +22,7 @@
     "jest": "23.6.0",
     "json-object-mapper": "^1.6.0",
     "metro-react-native-babel-preset": "0.51.1",
+    "moment": "^2.23.0",
     "react-native-image-overlay": "^0.1.2",
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-modal": "^7.0.2",

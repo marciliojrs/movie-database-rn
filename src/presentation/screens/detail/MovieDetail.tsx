@@ -12,6 +12,7 @@ import {
   Platform
 } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import moment from "moment";
 
 interface Props {
   movie: IMovie;
@@ -35,7 +36,7 @@ export default class MovieDetail extends React.Component<Props, State> {
               }}
             >
               <Text style={styles.releaseDate}>
-                {this.props.movie.releaseDate.toDateString()}
+                {moment(this.props.movie.releaseDate).format("MM-DD-YYYY")}
               </Text>
             </View>
 

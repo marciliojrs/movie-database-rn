@@ -10,6 +10,7 @@ import {
   Animated
 } from "react-native";
 import CardBackground from "../../widget/CardBackground/index";
+import moment from "moment";
 
 export interface Props {
   movie: IMovie;
@@ -83,7 +84,7 @@ export class MovieItem extends React.PureComponent<Props, State> {
             <Text style={styles.title}>{this.props.movie.title}</Text>
 
             <Text style={styles.releaseDate}>
-              {this.props.movie.releaseDate.toDateString()}
+              {moment(this.props.movie.releaseDate).format("MM-DD-YYYY")}
             </Text>
           </TouchableOpacity>
         </CardBackground>
