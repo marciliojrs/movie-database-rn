@@ -10,7 +10,7 @@ import {
   Animated
 } from "react-native";
 import CardBackground from "../../widget/CardBackground/index";
-import moment from "moment";
+import ReleaseDateLabel from "../../widget/ReleaseDateLabel";
 
 export interface Props {
   movie: IMovie;
@@ -83,9 +83,10 @@ export class MovieItem extends React.PureComponent<Props, State> {
           >
             <Text style={styles.title}>{this.props.movie.title}</Text>
 
-            <Text style={styles.releaseDate}>
-              {moment(this.props.movie.releaseDate).format("MM-DD-YYYY")}
-            </Text>
+            <ReleaseDateLabel
+              style={styles.releaseDate}
+              date={this.props.movie.releaseDate}
+            />
           </TouchableOpacity>
         </CardBackground>
       </Animated.View>
@@ -120,15 +121,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   releaseDate: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
     position: "absolute",
     alignSelf: "center",
-    bottom: 8,
-    fontSize: 9,
-    color: "white",
-    padding: 4,
-    borderRadius: 8,
-    overflow: "hidden"
+    bottom: 8
   },
   itemEmpty: {
     backgroundColor: "transparent"

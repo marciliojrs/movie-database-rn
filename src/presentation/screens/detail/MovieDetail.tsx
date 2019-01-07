@@ -2,6 +2,7 @@ import React from "react";
 import { IMovie } from "../../../domain/entities/IMovie";
 import CardBackground from "../../widget/CardBackground";
 import CloseButton from "../../widget/CloseButton";
+import ReleaseDateLabel from "../../widget/ReleaseDateLabel";
 import {
   StyleSheet,
   SafeAreaView,
@@ -12,7 +13,6 @@ import {
   Platform
 } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
-import moment from "moment";
 
 interface Props {
   movie: IMovie;
@@ -35,9 +35,7 @@ export default class MovieDetail extends React.Component<Props, State> {
                 margin: 8
               }}
             >
-              <Text style={styles.releaseDate}>
-                {moment(this.props.movie.releaseDate).format("MM-DD-YYYY")}
-              </Text>
+              <ReleaseDateLabel date={this.props.movie.releaseDate} />
             </View>
 
             <Text style={styles.overview}>{this.props.movie.overview}</Text>
@@ -67,14 +65,5 @@ const styles = StyleSheet.create({
   overview: {
     color: "white",
     margin: 8
-  },
-  releaseDate: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    fontSize: 9,
-    color: "white",
-    padding: 4,
-    borderRadius: 8,
-    overflow: "hidden",
-    alignSelf: "auto"
   }
 });
