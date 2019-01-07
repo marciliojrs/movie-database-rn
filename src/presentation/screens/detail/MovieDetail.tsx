@@ -2,6 +2,7 @@ import React from "react";
 import { IMovie } from "../../../domain/entities/IMovie";
 import CardBackground from "../../widget/CardBackground";
 import CloseButton from "../../widget/CloseButton";
+import ReleaseDateLabel from "../../widget/ReleaseDateLabel";
 import {
   StyleSheet,
   SafeAreaView,
@@ -34,9 +35,7 @@ export default class MovieDetail extends React.Component<Props, State> {
                 margin: 8
               }}
             >
-              <Text style={styles.releaseDate}>
-                {this.props.movie.releaseDate.toDateString()}
-              </Text>
+              <ReleaseDateLabel date={this.props.movie.releaseDate} />
             </View>
 
             <Text style={styles.overview}>{this.props.movie.overview}</Text>
@@ -66,14 +65,5 @@ const styles = StyleSheet.create({
   overview: {
     color: "white",
     margin: 8
-  },
-  releaseDate: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    fontSize: 9,
-    color: "white",
-    padding: 4,
-    borderRadius: 8,
-    overflow: "hidden",
-    alignSelf: "auto"
   }
 });
