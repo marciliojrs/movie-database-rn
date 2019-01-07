@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, StyleProp, ViewStyle } from "react-native";
+import { Text, StyleProp, ViewStyle, Platform } from "react-native";
 import moment from "moment";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 interface Props {
   date: Date;
@@ -16,10 +17,10 @@ export default class ReleaseDateLabel extends React.PureComponent<Props> {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   releaseDate: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    fontSize: 9,
+    fontSize: Platform.OS === "ios" ? 9 : 11,
     color: "white",
     padding: 4,
     borderRadius: 8,

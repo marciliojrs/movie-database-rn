@@ -2,15 +2,16 @@ import React from "react";
 import { IMovie } from "src/domain/entities/IMovie";
 import {
   View,
-  StyleSheet,
   StyleProp,
   ViewStyle,
   Text,
   TouchableOpacity,
-  Animated
+  Animated,
+  Platform
 } from "react-native";
 import CardBackground from "../../widget/CardBackground/index";
 import ReleaseDateLabel from "../../widget/ReleaseDateLabel";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 export interface Props {
   movie: IMovie;
@@ -94,7 +95,7 @@ export class MovieItem extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   leftItem: {
     marginLeft: 8,
     marginRight: 4
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     margin: 8,
-    fontSize: 16,
+    fontSize: Platform.OS === "ios" ? 16 : 22,
     fontWeight: "bold"
   },
   releaseDate: {
