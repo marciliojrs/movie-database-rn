@@ -76,20 +76,19 @@ export class MovieItem extends React.PureComponent<Props, State> {
           { transform: [{ scale: this.state.cardScale }] }
         ]}
       >
-        <CardBackground movie={this.props.movie}>
-          <TouchableOpacity
-            activeOpacity={0.9}
-            style={{ flex: 1 }}
-            onPress={this.tapFeedback}
-          >
-            <Text style={styles.title}>{this.props.movie.title}</Text>
+        <CardBackground movie={this.props.movie} />
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={{ position: "absolute", width: "100%", height: "100%" }}
+          onPress={this.tapFeedback}
+        >
+          <Text style={styles.title}>{this.props.movie.title}</Text>
 
-            <ReleaseDateLabel
-              style={styles.releaseDate}
-              date={this.props.movie.releaseDate}
-            />
-          </TouchableOpacity>
-        </CardBackground>
+          <ReleaseDateLabel
+            style={styles.releaseDate}
+            date={this.props.movie.releaseDate}
+          />
+        </TouchableOpacity>
       </Animated.View>
     );
   }
@@ -110,7 +109,7 @@ const styles = EStyleSheet.create({
     height: 180,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "black",
     flexGrow: 1,
     flexBasis: 0,
     borderRadius: 8

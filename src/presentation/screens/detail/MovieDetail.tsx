@@ -23,10 +23,13 @@ interface State {}
 export default class MovieDetail extends React.Component<Props, State> {
   render() {
     return (
-      <CardBackground movie={this.props.movie}>
+      <View>
         <StatusBar barStyle="light-content" />
-        <SafeAreaView>
-          <ScrollView style={{ height: "100%" }}>
+        <CardBackground movie={this.props.movie} />
+        <SafeAreaView
+          style={{ position: "absolute", height: "100%", width: "100%" }}
+        >
+          <ScrollView>
             <Text style={styles.title}>{this.props.movie.title}</Text>
             <View
               style={{
@@ -44,7 +47,7 @@ export default class MovieDetail extends React.Component<Props, State> {
         <View style={{ alignSelf: "flex-end", position: "absolute" }}>
           <CloseButton style={styles.closeButton} onTap={this.props.close} />
         </View>
-      </CardBackground>
+      </View>
     );
   }
 }
