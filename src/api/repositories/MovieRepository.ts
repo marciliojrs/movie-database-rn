@@ -4,12 +4,19 @@ import { ObjectMapper } from "json-object-mapper";
 import { Movie } from "../entities/Movie";
 import { callApi } from "../moviedb.api";
 
+let totalPages: number | null;
+
 export function makeMovieRepository(): MovieRepositoryType {
   return {
     async upcoming(page: number): Promise<IMovie[]> {
+      if (totalPages && page > totalPages) {
+        return Promise.reject();
+      }
       const upcomingMovies = await callApi("movie/upcoming", {
         page: page.toString()
       });
+
+      totalPages = upcomingMovies.total_pages;
       return ObjectMapper.deserializeArray(Movie, upcomingMovies.results);
     }
   };

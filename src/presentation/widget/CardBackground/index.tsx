@@ -6,7 +6,7 @@ interface Props {
   movie: IMovie;
 }
 
-export default class CardBackground extends React.Component<Props> {
+export default class CardBackground extends React.PureComponent<Props> {
   render() {
     return (
       <ImageBackground

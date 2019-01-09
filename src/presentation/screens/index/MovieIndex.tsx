@@ -5,7 +5,9 @@ import {
   SafeAreaView,
   FlatList,
   Modal,
-  StatusBar
+  StatusBar,
+  View,
+  ActivityIndicator
 } from "react-native";
 import { makeMovieRepository } from "../../../api/repositories/MovieRepository";
 import { makeGetUpcomingMoviesUseCase } from "../../../domain/usecases/GetUpcomingMoviesUseCase";
@@ -20,6 +22,7 @@ interface State {
   page: number;
   selectedMovie: IMovie;
   isModalVisible: boolean;
+  isLoading: boolean;
 }
 
 const numOfColumns = 2;
@@ -34,20 +37,31 @@ export default class MovieIndex extends React.Component<Props, State> {
       movies: [],
       page: 1,
       selectedMovie: new Movie(),
-      isModalVisible: false
+      isModalVisible: false,
+      isLoading: false
     };
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
   }
 
   componentDidMount() {
-    console.log(this.state.page);
     this.loadMovies();
   }
 
   private async loadMovies() {
-    const upcoming = await this.useCase.execute(this.state.page);
-    this.setState({ movies: [...this.state.movies, ...upcoming] });
+    this.setState({ isLoading: true });
+
+    this.useCase
+      .execute(this.state.page)
+      .then(upcoming => {
+        this.setState({
+          movies: [...this.state.movies, ...upcoming],
+          isLoading: false
+        });
+      })
+      .catch(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   private createRows(data: IMovie[], columns: number) {
@@ -82,6 +96,16 @@ export default class MovieIndex extends React.Component<Props, State> {
     />
   );
 
+  _renderFooter = () => {
+    return (
+      <View
+        style={{ height: 50, justifyContent: "center", alignSelf: "center" }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  };
+
   private closeModal() {
     this.setState({ isModalVisible: false });
   }
@@ -95,8 +119,9 @@ export default class MovieIndex extends React.Component<Props, State> {
           keyExtractor={item => item.id.toString()}
           numColumns={numOfColumns}
           renderItem={this._renderItem}
+          ListFooterComponent={this._renderFooter}
           onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={100}
         />
         <Modal
           visible={this.state.isModalVisible}
