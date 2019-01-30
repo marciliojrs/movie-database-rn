@@ -5,6 +5,10 @@
     "jsx-no-lambda": false,
     "object-literal-sort-keys": false,
     "no-empty-interface": false,
-    "interface-name": false
+    "interface-name": false,
+    "trailing-comma": false
+  },
+  "linterOptions": {
+    "exclude": ["node_modules"]
   }
 }

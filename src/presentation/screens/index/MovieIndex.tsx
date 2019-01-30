@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  View,
+  View
 } from "react-native";
 import "reflect-metadata";
 import { Movie } from "../../../api/entities/Movie";
@@ -38,14 +38,15 @@ export default class MovieIndex extends React.Component<Props, State> {
       page: 1,
       selectedMovie: new Movie(),
       isLoading: false,
-      isModalVisible: false,
+      isModalVisible: false
     };
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
   }
 
   public componentDidMount() {
-    this.loadMovies();
+    console.log("component did mount");
+    // this.loadMovies();
   }
 
   public render() {
@@ -99,19 +100,20 @@ export default class MovieIndex extends React.Component<Props, State> {
   )
 
   private async loadMovies() {
-    this.setState({ isLoading: true });
+    console.log("loadMovies");
+    // this.setState({ isLoading: true });
 
-    this.useCase
-      .execute(this.state.page)
-      .then((upcoming) => {
-        this.setState({
-          movies: [...this.state.movies, ...upcoming],
-          isLoading: false,
-        });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
+    // this.useCase
+    //   .execute(this.state.page)
+    //   .then((upcoming) => {
+    //     this.setState({
+    //       movies: [...this.state.movies, ...upcoming],
+    //       isLoading: false,
+    //     });
+    //   })
+    //   .catch(() => {
+    //     this.setState({ isLoading: false });
+    //   });
   }
 
   private createRows(data: IMovie[], columns: number) {
@@ -125,14 +127,15 @@ export default class MovieIndex extends React.Component<Props, State> {
   }
 
   private handleLoadMore() {
-    this.setState(
-      {
-        page: this.state.page + 1,
-      },
-      () => {
-        this.loadMovies();
-      },
-    );
+    console.log("end reached");
+    // this.setState(
+    //   {
+    //     page: this.state.page + 1,
+    //   },
+    //   () => {
+    //     this.loadMovies();
+    //   },
+    // );
   }
 
   private closeModal() {
@@ -142,6 +145,6 @@ export default class MovieIndex extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: "#000",
-  },
+    backgroundColor: "#000"
+  }
 });
