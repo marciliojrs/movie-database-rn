@@ -6,11 +6,11 @@ export interface GetUpcomingMoviesUseCaseType {
 }
 
 export function makeGetUpcomingMoviesUseCase(
-  movieRepository: MovieRepositoryType,
+  movieRepository: MovieRepositoryType
 ): GetUpcomingMoviesUseCaseType {
   return {
     execute(page: number) {
       return movieRepository.upcoming(page);
-    },
+    }
   };
 }

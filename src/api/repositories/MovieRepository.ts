@@ -1,6 +1,6 @@
-import { MovieRepositoryType } from "src/domain/repositories/MovieRepository";
-import { IMovie } from "src/domain/entities/IMovie";
 import { ObjectMapper } from "json-object-mapper";
+import { IMovie } from "src/domain/entities/IMovie";
+import { MovieRepositoryType } from "src/domain/repositories/MovieRepository";
 import { Movie } from "../entities/Movie";
 import { callApi } from "../moviedb.api";
 

@@ -1,5 +1,5 @@
-import { IMovie } from "src/domain/entities/IMovie";
 import { JsonProperty } from "json-object-mapper";
+import { IMovie } from "src/domain/entities/IMovie";
 import { ImagePathTransformer } from "./transformers/ImagePathTransformer";
 
 export class Movie implements IMovie {
