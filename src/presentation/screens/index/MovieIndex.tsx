@@ -45,8 +45,7 @@ export default class MovieIndex extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    console.log("component did mount");
-    // this.loadMovies();
+    this.loadMovies();
   }
 
   public render() {
@@ -60,7 +59,7 @@ export default class MovieIndex extends React.Component<Props, State> {
           renderItem={this.renderItem}
           ListFooterComponent={this.renderFooter}
           onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={100}
+          onEndReachedThreshold={0.5}
         />
         <Modal
           visible={this.state.isModalVisible}
@@ -100,20 +99,19 @@ export default class MovieIndex extends React.Component<Props, State> {
   )
 
   private async loadMovies() {
-    console.log("loadMovies");
-    // this.setState({ isLoading: true });
+    this.setState({ isLoading: true });
 
-    // this.useCase
-    //   .execute(this.state.page)
-    //   .then((upcoming) => {
-    //     this.setState({
-    //       movies: [...this.state.movies, ...upcoming],
-    //       isLoading: false,
-    //     });
-    //   })
-    //   .catch(() => {
-    //     this.setState({ isLoading: false });
-    //   });
+    this.useCase
+      .execute(this.state.page)
+      .then((upcoming) => {
+        this.setState({
+          movies: [...this.state.movies, ...upcoming],
+          isLoading: false
+        });
+      })
+      .catch(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   private createRows(data: IMovie[], columns: number) {
@@ -127,15 +125,18 @@ export default class MovieIndex extends React.Component<Props, State> {
   }
 
   private handleLoadMore() {
-    console.log("end reached");
-    // this.setState(
-    //   {
-    //     page: this.state.page + 1,
-    //   },
-    //   () => {
-    //     this.loadMovies();
-    //   },
-    // );
+    if (this.state.isLoading) {
+      return;
+    }
+
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        this.loadMovies();
+      }
+    );
   }
 
   private closeModal() {
