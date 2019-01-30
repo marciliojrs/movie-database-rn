@@ -12,5 +12,10 @@ export async function callApi(
     queryParams: { api_key: API_KEY, ...options }
   });
 
-  return await fetch(url).then(res => res.json());
+  console.log(url);
+  return await fetch(url)
+    .then(res => res.json())
+    .catch(err => {
+      console.error(err);
+    });
 }

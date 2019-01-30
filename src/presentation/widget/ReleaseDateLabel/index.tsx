@@ -1,6 +1,6 @@
-import React from "react";
-import { Text, StyleProp, ViewStyle, Platform } from "react-native";
 import moment from "moment";
+import React from "react";
+import { Platform, StyleProp, Text, ViewStyle } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 export default class ReleaseDateLabel extends React.PureComponent<Props> {
-  render() {
+  public render() {
     return (
       <Text style={[styles.releaseDate, this.props.style]}>
         {moment(this.props.date).format("MM-DD-YYYY")}
@@ -25,6 +25,6 @@ const styles = EStyleSheet.create({
     padding: 4,
     borderRadius: 8,
     overflow: "hidden",
-    alignSelf: "auto"
-  }
+    alignSelf: "auto",
+  },
 });

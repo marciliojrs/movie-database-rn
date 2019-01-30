@@ -1,17 +1,17 @@
 import React from "react";
-import { IMovie } from "src/domain/entities/IMovie";
 import {
-  View,
+  Animated,
+  Platform,
   StyleProp,
-  ViewStyle,
   Text,
   TouchableOpacity,
-  Animated,
-  Platform
+  View,
+  ViewStyle,
 } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { IMovie } from "src/domain/entities/IMovie";
 import CardBackground from "../../widget/CardBackground/index";
 import ReleaseDateLabel from "../../widget/ReleaseDateLabel";
-import EStyleSheet from "react-native-extended-stylesheet";
 
 export interface Props {
   movie: IMovie;
@@ -32,40 +32,8 @@ export class MovieItem extends React.PureComponent<Props, State> {
     this.tapFeedback = this.tapFeedback.bind(this);
   }
 
-  private getItemStyle(): StyleProp<ViewStyle> {
-    let itemStyles: StyleProp<ViewStyle>[] = [styles.item];
-    if (this.props.index % 2 == 0) {
-      itemStyles.push(styles.leftItem);
-    } else {
-      itemStyles.push(styles.rightItem);
-    }
-
-    if (this.props.isLast) {
-      itemStyles.push({ marginBottom: 8 });
-    }
-
-    return itemStyles;
-  }
-
-  private tapFeedback() {
-    this.setState(() => {
-      Animated.sequence([
-        Animated.timing(this.state.cardScale, {
-          toValue: 0.95,
-          duration: 100
-        }),
-        Animated.timing(this.state.cardScale, {
-          toValue: 1,
-          duration: 100
-        })
-      ]).start(() => {
-        this.props.onPress(this.props.movie);
-      });
-    });
-  }
-
-  render() {
-    if (this.props.movie.id == 0) {
+  public render() {
+    if (this.props.movie.id === 0) {
       return <View style={[styles.item, styles.itemEmpty]} />;
     }
 
@@ -73,7 +41,7 @@ export class MovieItem extends React.PureComponent<Props, State> {
       <Animated.View
         style={[
           this.getItemStyle(),
-          { transform: [{ scale: this.state.cardScale }] }
+          { transform: [{ scale: this.state.cardScale }] },
         ]}
       >
         <CardBackground movie={this.props.movie} />
@@ -92,16 +60,48 @@ export class MovieItem extends React.PureComponent<Props, State> {
       </Animated.View>
     );
   }
+
+  private getItemStyle(): StyleProp<ViewStyle> {
+    const itemStyles: Array<StyleProp<ViewStyle>> = [styles.item];
+    if (this.props.index % 2 === 0) {
+      itemStyles.push(styles.leftItem);
+    } else {
+      itemStyles.push(styles.rightItem);
+    }
+
+    if (this.props.isLast) {
+      itemStyles.push({ marginBottom: 8 });
+    }
+
+    return itemStyles;
+  }
+
+  private tapFeedback() {
+    this.setState(() => {
+      Animated.sequence([
+        Animated.timing(this.state.cardScale, {
+          toValue: 0.95,
+          duration: 100,
+        }),
+        Animated.timing(this.state.cardScale, {
+          toValue: 1,
+          duration: 100,
+        }),
+      ]).start(() => {
+        this.props.onPress(this.props.movie);
+      });
+    });
+  }
 }
 
 const styles = EStyleSheet.create({
   leftItem: {
     marginLeft: 8,
-    marginRight: 4
+    marginRight: 4,
   },
   rightItem: {
     marginLeft: 4,
-    marginRight: 8
+    marginRight: 8,
   },
   item: {
     overflow: "hidden",
@@ -112,20 +112,20 @@ const styles = EStyleSheet.create({
     backgroundColor: "black",
     flexGrow: 1,
     flexBasis: 0,
-    borderRadius: 8
+    borderRadius: 8,
   },
   title: {
     color: "white",
     margin: 8,
     fontSize: Platform.OS === "ios" ? 16 : 22,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   releaseDate: {
     position: "absolute",
     alignSelf: "center",
-    bottom: 8
+    bottom: 8,
   },
   itemEmpty: {
-    backgroundColor: "transparent"
-  }
+    backgroundColor: "transparent",
+  },
 });
