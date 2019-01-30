@@ -1,11 +1,11 @@
 import React from "react";
 import {
-  TouchableOpacity,
   Image,
-  StyleSheet,
   StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
   ViewStyle,
-  View
 } from "react-native";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default class CloseButton extends React.PureComponent<Props> {
-  render() {
+  public render() {
     return (
       <TouchableOpacity
         style={[
@@ -23,8 +23,8 @@ export default class CloseButton extends React.PureComponent<Props> {
             width: 44,
             height: 44,
             justifyContent: "center",
-            alignItems: "center"
-          }
+            alignItems: "center",
+          },
         ]}
         activeOpacity={0.8}
         onPress={() => this.props.onTap()}
@@ -43,7 +43,7 @@ export default class CloseButton extends React.PureComponent<Props> {
 const styles = StyleSheet.create({
   closeImage: {
     width: 16,
-    height: 16
+    height: 16,
   },
   closeButton: {
     backgroundColor: "rgba(255,255,255,0.2)",
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
     height: 24,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 12
-  }
+    borderRadius: 12,
+  },
 });

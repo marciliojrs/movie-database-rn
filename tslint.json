@@ -1,14 +1,10 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-react"],
   "rules": {
-    "arrow-parens": false,
-    "cyclomatic-complexity": [true, 10],
-    "object-literal-sort-keys": false,
-    "object-literal-shorthand": false,
-    "member-access": false,
-    "interface-name": false,
-    "no-any": false,
+    "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,
-    "no-var-requires": false
+    "object-literal-sort-keys": false,
+    "no-empty-interface": false,
+    "interface-name": false
   }
 }

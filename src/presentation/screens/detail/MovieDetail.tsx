@@ -1,18 +1,18 @@
 import React from "react";
+import {
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  View,
+} from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { IMovie } from "../../../domain/entities/IMovie";
 import CardBackground from "../../widget/CardBackground";
 import CloseButton from "../../widget/CloseButton";
 import ReleaseDateLabel from "../../widget/ReleaseDateLabel";
-import {
-  SafeAreaView,
-  Text,
-  View,
-  ScrollView,
-  StatusBar,
-  Platform
-} from "react-native";
-import { getStatusBarHeight } from "react-native-iphone-x-helper";
-import EStyleSheet from "react-native-extended-stylesheet";
 
 interface Props {
   movie: IMovie;
@@ -21,7 +21,7 @@ interface Props {
 interface State {}
 
 export default class MovieDetail extends React.Component<Props, State> {
-  render() {
+  public render() {
     return (
       <View>
         <StatusBar barStyle="light-content" />
@@ -35,7 +35,7 @@ export default class MovieDetail extends React.Component<Props, State> {
               style={{
                 flexDirection: "row",
                 alignSelf: "flex-start",
-                margin: 8
+                margin: 8,
               }}
             >
               <ReleaseDateLabel date={this.props.movie.releaseDate} />
@@ -54,7 +54,7 @@ export default class MovieDetail extends React.Component<Props, State> {
 
 const styles = EStyleSheet.create({
   closeButton: {
-    marginTop: Platform.OS === "ios" ? getStatusBarHeight() : 0
+    marginTop: Platform.OS === "ios" ? getStatusBarHeight() : 0,
   },
   title: {
     flex: 1,
@@ -63,10 +63,10 @@ const styles = EStyleSheet.create({
     marginTop: 8,
     marginRight: 60,
     fontSize: Platform.OS === "ios" ? 26 : 32,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   overview: {
     color: "white",
-    margin: 8
-  }
+    margin: 8,
+  },
 });

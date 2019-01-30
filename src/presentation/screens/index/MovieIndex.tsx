@@ -1,20 +1,20 @@
 import React from "react";
-import "reflect-metadata";
 import {
-  StyleSheet,
-  SafeAreaView,
+  ActivityIndicator,
   FlatList,
   Modal,
+  SafeAreaView,
   StatusBar,
+  StyleSheet,
   View,
-  ActivityIndicator
 } from "react-native";
-import { makeMovieRepository } from "../../../api/repositories/MovieRepository";
-import { makeGetUpcomingMoviesUseCase } from "../../../domain/usecases/GetUpcomingMoviesUseCase";
-import { IMovie } from "../../../domain/entities/IMovie";
+import "reflect-metadata";
 import { Movie } from "../../../api/entities/Movie";
-import { MovieItem } from "./MovieItem";
+import { makeMovieRepository } from "../../../api/repositories/MovieRepository";
+import { IMovie } from "../../../domain/entities/IMovie";
+import { makeGetUpcomingMoviesUseCase } from "../../../domain/usecases/GetUpcomingMoviesUseCase";
 import MovieDetail from "../detail/MovieDetail";
+import { MovieItem } from "./MovieItem";
 
 interface Props {}
 interface State {
@@ -27,8 +27,8 @@ interface State {
 
 const numOfColumns = 2;
 export default class MovieIndex extends React.Component<Props, State> {
-  repo = makeMovieRepository();
-  useCase = makeGetUpcomingMoviesUseCase(this.repo);
+  public repo = makeMovieRepository();
+  public useCase = makeGetUpcomingMoviesUseCase(this.repo);
 
   constructor(props: Props) {
     super(props);
@@ -37,89 +37,27 @@ export default class MovieIndex extends React.Component<Props, State> {
       movies: [],
       page: 1,
       selectedMovie: new Movie(),
+      isLoading: false,
       isModalVisible: false,
-      isLoading: false
     };
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.loadMovies();
   }
 
-  private async loadMovies() {
-    this.setState({ isLoading: true });
-
-    this.useCase
-      .execute(this.state.page)
-      .then(upcoming => {
-        this.setState({
-          movies: [...this.state.movies, ...upcoming],
-          isLoading: false
-        });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
-  }
-
-  private createRows(data: IMovie[], columns: number) {
-    const rows = Math.floor(data.length / columns);
-    let lastRowElements = data.length - rows * columns;
-    while (lastRowElements !== columns && lastRowElements != 0) {
-      data.push(new Movie());
-      lastRowElements += 1;
-    }
-    return data;
-  }
-
-  private handleLoadMore() {
-    this.setState(
-      {
-        page: this.state.page + 1
-      },
-      () => {
-        this.loadMovies();
-      }
-    );
-  }
-
-  _renderItem = ({ item, index }: { item: IMovie; index: number }) => (
-    <MovieItem
-      movie={item}
-      isLast={index == this.state.movies.length - 1}
-      index={index}
-      onPress={movie => {
-        this.setState({ isModalVisible: true, selectedMovie: movie });
-      }}
-    />
-  );
-
-  _renderFooter = () => {
-    return (
-      <View
-        style={{ height: 50, justifyContent: "center", alignSelf: "center" }}
-      >
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  };
-
-  private closeModal() {
-    this.setState({ isModalVisible: false });
-  }
-
-  render() {
+  public render() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <StatusBar barStyle="light-content" />
         <FlatList
           data={this.createRows(this.state.movies, numOfColumns)}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           numColumns={numOfColumns}
-          renderItem={this._renderItem}
-          ListFooterComponent={this._renderFooter}
+          renderItem={this.renderItem}
+          ListFooterComponent={this.renderFooter}
           onEndReached={this.handleLoadMore}
           onEndReachedThreshold={100}
         />
@@ -138,10 +76,72 @@ export default class MovieIndex extends React.Component<Props, State> {
       </SafeAreaView>
     );
   }
+
+  private renderFooter = () => {
+    return (
+      <View
+        style={{ height: 50, justifyContent: "center", alignSelf: "center" }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  private renderItem = ({ item, index }: { item: IMovie; index: number }) => (
+    <MovieItem
+      movie={item}
+      isLast={index === this.state.movies.length - 1}
+      index={index}
+      onPress={(movie) => {
+        this.setState({ isModalVisible: true, selectedMovie: movie });
+      }}
+    />
+  )
+
+  private async loadMovies() {
+    this.setState({ isLoading: true });
+
+    this.useCase
+      .execute(this.state.page)
+      .then((upcoming) => {
+        this.setState({
+          movies: [...this.state.movies, ...upcoming],
+          isLoading: false,
+        });
+      })
+      .catch(() => {
+        this.setState({ isLoading: false });
+      });
+  }
+
+  private createRows(data: IMovie[], columns: number) {
+    const rows = Math.floor(data.length / columns);
+    let lastRowElements = data.length - rows * columns;
+    while (lastRowElements !== columns && lastRowElements !== 0) {
+      data.push(new Movie());
+      lastRowElements += 1;
+    }
+    return data;
+  }
+
+  private handleLoadMore() {
+    this.setState(
+      {
+        page: this.state.page + 1,
+      },
+      () => {
+        this.loadMovies();
+      },
+    );
+  }
+
+  private closeModal() {
+    this.setState({ isModalVisible: false });
+  }
 }
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: "#000"
-  }
+    backgroundColor: "#000",
+  },
 });
